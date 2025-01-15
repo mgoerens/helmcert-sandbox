@@ -1,5 +1,6 @@
 name: CI
 
+# Il était une fois
 on:
   pull_request_target:
     types: [opened, synchronize, reopened, edited, ready_for_review, labeled]
@@ -145,7 +146,7 @@ jobs:
           BOT_TOKEN: ${{ secrets.BOT_TOKEN }}
         run: |
           # Sandbox repo does not have an helm repository index
-          if [ "$GITHUB_REPOSITORY" == "openshift-helm-charts/sandbox" ]; then
+          if [ "$GITHUB_REPOSITORY" == "mgoerens/helmcert-sandbox" ]; then
             CLI_FLAG="--ignore_missing_helm_index"
           fi
 
@@ -361,6 +362,8 @@ jobs:
           WORKFLOW_WORKING_DIRECTORY: "../pr"
           OCP_VERSION_RANGE: ${{ steps.get-ocp-range.outputs.ocp-version-range }}
         run: |
+          env | grep BOT
+
           cd pr-branch
           ../ve1/bin/chart-pr-review \
             --directory=../pr \
